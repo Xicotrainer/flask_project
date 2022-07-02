@@ -1,4 +1,5 @@
 from flask import Flask
+from flask import redirect
 from flask import render_template
 from flask import url_for
 from flask_sqlalchemy import SQLAlchemy
@@ -15,11 +16,19 @@ class Todo(db.Model):
     
     def __repr__(self):
         return '<Task %r>' % self.id
+        
 
-@app.route('/', methods=['POST', 'GET'])
-def index():
+@app.route('/')
+def home():
     return render_template('index.html')
 
+@app.route('/login', methods = ['POST', 'GET'])
+def login():
+    return render_template('login.html')
+
+@app.route('/<usr>')
+def user(usr):
+    return f'<h1>{usr}</h1>'
 if __name__ == '__main__':
     app.run(debug=True)
 
